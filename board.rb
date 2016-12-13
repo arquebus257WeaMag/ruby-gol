@@ -4,11 +4,13 @@ class Board
   MAX_ROWS = 20
   BORDER = '#'
 
-  def initialize(lives=[])
+  def initialize()
     init_board
-    lives.each do |life|
-      @board_map[life.row][life.col] = life.char
-    end
+  end
+
+  def add_lives(num)
+    num.times { add_life(Life.new) }
+    self
   end
 
   def print_board
@@ -31,6 +33,10 @@ class Board
 
   def print_top
     puts BORDER * (MAX_COLS + 1)
+  end
+
+  def add_life(life)
+    @board_map[life.row][life.col] = life.char
   end
 
 end
