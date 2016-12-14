@@ -3,9 +3,17 @@ class Life
   attr_accessor :char
   attr_reader :row, :col, :size
 
+  def self.rows=(rows)
+    @@max_rows = rows
+  end
+  def self.cols=(cols)
+    @@max_cols = cols
+  end
+
   def initialize
-    @row = (0...25).to_a.sample
-    @col = (0...40).to_a.sample
+    p @max_rows
+    @row = (1...@@max_rows - 1).to_a.sample
+    @col = (1...@@max_cols - 1).to_a.sample
     @size = 1
     @char = 'x'
   end
@@ -13,15 +21,17 @@ class Life
   def move
     if true_or_false
       if true_or_false
-        @row == 24 ? @row -= 1 : @row +=1
+        if true_or_false
+          @row == @@max_rows - 2 ? @row -= 1 : @row +=1
+        else
+          @row == 1 ? @row += 1 : @row -=1
+        end
       else
-        @row == 0 ? @row += 1 : @row -=1
-      end
-    else
-      if true_or_false
-        @col == 39 ? @col -= 1 : @col +=1
-      else
-        @col == 0 ? @col += 1 : @col -=1
+        if true_or_false
+          @col == @@max_cols - 2 ? @col -= 1 : @col +=1
+        else
+          @col == 1 ? @col += 1 : @col -=1
+        end
       end
     end
   end

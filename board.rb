@@ -1,56 +1,53 @@
 class Board
 
-  MAX_COLS = 40
-  MAX_ROWS = 20
-  BORDER = '#'
-
-  def initialize()
-    init_board
-    @lives = []
+  def self.rows=(rows)
+    @@max_rows = rows
+  end
+  def self.cols=(cols)
+    @@max_cols = cols
+  end
+  def self.border=(border)
+    @@border = border
   end
 
-  def add_lives(lives)
-    if lives.is_a?(Array)
-      lives.each { |life| add_life(life) }
-    else
-      num.times { add_life(Life.new) }
-    end
-    self
+  def initialize
+    set_grid
   end
 
-  def print_board
-    update_board
+  def display(lives)
     system('clear')
-    print_top
-    @board_map.each do |row|
-      row.each do |col|
-        print col
-      end
-      print "#{BORDER}\n"
-    end
+    set_grid(lives)
+    print_border
+    print_grid
+    print_border
   end
 
   private
 
-  def init_board
-    @board_map = []
-    MAX_ROWS.times { @board_map << (' ' * MAX_COLS).split('') }
+  def init_grid
+    @grid = []
+    @@max_rows.times { @grid << (' ' * @@max_cols).split('') }
   end
 
-  def update_board
-    init_board
-    @lives.each do |life|
-      @board_map[life.row][life.col] = life.char
+  def set_grid(lives=[])
+    init_grid
+    lives.each do |life|
+      @grid[life.row][life.col] = life.char
     end
   end
 
-  def print_top
-    puts BORDER * (MAX_COLS + 1)
+  def print_border
+    puts @@border * (@@max_cols + 2)
   end
 
-  def add_life(life)
-    @lives << life
-    update_board
+  def print_grid
+    @grid.each do |row|
+      print "#{@@border}"
+      row.each do |col|
+        print col
+      end
+      print "#{@@border}\n"
+    end
   end
 
 end
