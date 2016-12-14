@@ -11,15 +11,16 @@ class Life
   end
 
   def initialize
-    p @max_rows
-    @row = (1...@@max_rows - 1).to_a.sample
-    @col = (1...@@max_cols - 1).to_a.sample
+    @row = (1...@@max_rows - 2).to_a.sample
+    @col = (1...@@max_cols - 2).to_a.sample
     @size = 1
-    @char = 'x'
+    @moves = 0
+    @char = '.'
   end
 
   def move
     if true_or_false
+      @moves += 1
       if true_or_false
         if true_or_false
           @row == @@max_rows - 2 ? @row -= 1 : @row +=1
